@@ -1,3 +1,39 @@
+import array as arr
+import urllib.request
+
+import face_recognition
+from response import *
+
+
+def test(name):
+    return 'hello' + name
+
+
+# face detection function
+def face_detect_from_images(image_urls: arr):
+    # ảnh có 1 khuôn mặt
+    acceptable_images = []
+    # ảnh có 2 khuôn mặt trở lên
+    unacceptable_images = []
+
+    if len(image_urls) == 0:
+        return response(-9999, 'failed', 'Không tìm thấy ảnh nào')
+    for image_url in image_urls:
+        response_img = urllib.request.urlopen(image_url)
+        face_img = face_recognition.load_image_file(response_img)
+        face_locations = face_recognition.face_locations(face_img)
+        total_faces = len(face_locations)
+        if total_faces > 1:
+            unacceptable_images.append(image_url)
+        else:
+            acceptable_images.append(image_url)
+
+    payload = {
+        'acceptable_images': acceptable_images,
+        'unacceptable_images': unacceptable_images
+    }
+
+    return response(9999, 'success', payload)
 
 # urlBill = 'https://scontent.fsgn5-9.fna.fbcdn.net/v/t1.6435-9/133480305_1025775777934271_8384115018610540736_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=174925&_nc_ohc=lqx6Uuk6gsoAX93OULq&_nc_ht=scontent.fsgn5-9.fna&oh=00_AfCTQssmh_T6-cMDuwLixudGLHWGRR8hG-uU2gAZufUUkw&oe=64CBD82D'
 # responseBill = urllib.request.urlopen(urlBill)
@@ -27,5 +63,3 @@
 # cv2.imshow('Bill', imgBill)
 # cv2.imshow('test', imgTest)
 # cv2.waitKey(0)
-def test(name):
-    return 'hello' + name
