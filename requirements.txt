@@ -1,6 +1,5 @@
 face-recognition
 face-recognition-models
-tensorflow~=2.12.0
 opencv-python-headless
 click==7.1.2
 Flask==1.1.2
