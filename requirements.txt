@@ -2,3 +2,4 @@ face-recognition
 opencv-python
 face-recognition-models
 Flask
+gunicorn
