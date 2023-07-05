@@ -68,5 +68,6 @@ def face_compare(image_urls: arr, defined_image: str):
         return response(-9999, 'failed', 'Ảnh chấm công bị lỗi vui lòng thay đổi ảnh chấm công')
 
     results = face_recognition.compare_faces(encode_defined, encode_defined_img, 0.6)
-    return response(9999, 'success', results)
+    print(results)
+    return response(9999, 'success', 'haha')
 

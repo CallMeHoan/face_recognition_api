@@ -19,7 +19,7 @@ def check_images():
 
 
 @app.route('/check/face_recognition', methods=['POST'])
-def face_compare():
+def face_recognition():
     try:
         json_data = request.get_json()
         if not json_data:
