@@ -24,10 +24,10 @@ def face_detect_from_images(image_urls: arr):
         face_img = face_recognition.load_image_file(response_img)
         face_locations = face_recognition.face_locations(face_img)
         total_faces = len(face_locations)
-        if total_faces > 1:
-            unacceptable_images.append(image_url)
-        else:
+        if total_faces == 1:
             acceptable_images.append(image_url)
+        else:
+            unacceptable_images.append(image_url)
 
     payload = {
         'acceptable_images': acceptable_images,
