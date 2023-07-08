@@ -37,23 +37,23 @@ def face_detect_from_images(image_urls: arr):
     return response(9999, 'success', payload)
 
 
-def face_compare(image_urls: arr, defined_image: str):
-    if len(image_urls) == 0:
+def face_compare(image_url: str, defined_image: str):
+    if len(image_url) == 0:
         return response(-9999, 'failed', 'Không có ảnh mẫu nào')
     if defined_image is None or len(defined_image) == 0:
         return response(-9999, 'failed', 'Không có ảnh để so sánh')
 
     encode_defined = []
-    for image in image_urls:
-        response_img = urllib.request.urlopen(image)
-        img = face_recognition.load_image_file(response_img)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    response_img = urllib.request.urlopen(image_url)
+    img = face_recognition.load_image_file(response_img)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-        try:
-            encode = face_recognition.face_encodings(img)[0]
-            encode_defined.append(encode)
-        except:
-            print("image error " + img)
+    try:
+        encode = face_recognition.face_encodings(img)[0]
+        encode_defined.append(encode)
+    except:
+        print("image error " + img)
+
 
     if len(encode_defined) == 0:
         return response(-9999, 'failed', 'Ảnh mẫu bị lỗi vui lòng thay đổi ảnh mẫu')

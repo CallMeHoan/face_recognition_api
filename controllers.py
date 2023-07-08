@@ -25,9 +25,9 @@ def face_recognition():
         if not json_data:
             return response(-9999, 'failed', 'missing_params')
 
-        image_urls = json_data.get('image_urls')
+        image_url = json_data.get('image_url')
         defined_image = json_data.get('defined_image')
-        return face_compare(image_urls, defined_image)
+        return face_compare(image_url, defined_image)
     except AttributeError as e:
         return response(-9999, 'failed', str(e))
 
